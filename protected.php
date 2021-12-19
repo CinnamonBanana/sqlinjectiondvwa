@@ -15,8 +15,7 @@
     {
         try {
             require_once ('dbCredentials.php');
-            $pdo = new PDO($strHostName, $strUserName, $strPassword, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-            return $pdo;
+            return new PDO($strHostName, $strUserName, $strPassword, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         } catch (PDOException $e) {
             die($e->getMessage());
         } 
