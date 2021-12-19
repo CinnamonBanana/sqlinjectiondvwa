@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,8 +14,8 @@
     function dbcon()
     {
         try {
-            $dsn = "pgsql:host=127.0.0.1;port=5432;dbname=lab2;";
-            $pdo = new PDO($dsn, 'postgres', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+            require_once ('dbCredentials.php');
+            $pdo = new PDO($strHostName, $strUserName, $strPassword, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
             return $pdo;
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -27,7 +28,6 @@
         $pdo = dbcon();
         $userid = stripslashes($_GET[ 'user_id' ]);
         $sql = "SELECT first_name, last_name FROM public.users WHERE user_id = :userid";
-        echo "<p>".$userid."</p>";
         $sth = $pdo->prepare($sql);
         $sth->bindParam(':userid', $userid, PDO::PARAM_STR);
         $sth->execute();
